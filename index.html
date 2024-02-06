@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas id="myCanvas"></canvas>
+    <canvas id="carCanvas"></canvas>
+    <div id="verticalButtons">
+        <button onclick="save()">SAVE</button>
+        <button onclick="discard()">DISCARD</button>
+    </div>
+    <canvas id="networkCanvas"></canvas>
     <script src="car.js"></script>
     <script src="controls.js"></script>
     <script src="road.js"></script>
     <script src="utils.js"></script>
     <script src="sensor.js"></script>
+    <script src="network.js"></script>
+    <script src="visualizer.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

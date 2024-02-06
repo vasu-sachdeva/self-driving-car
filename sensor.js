@@ -1,9 +1,9 @@
 class Sensor{
     constructor(car){
         this.car = car;
-        this.rayCount = 3;
-        this.rayLength = 100;
-        this.raySpread = Math.PI/4;
+        this.rayCount = 5;
+        this.rayLength = 150;
+        this.raySpread = Math.PI/3;
         this.rays = [];
         this.readings = []; //telling if there is a border collision with this ray or not
     }

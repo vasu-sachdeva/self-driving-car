@@ -12,7 +12,12 @@ class Car{
         this.angle = 0;
 
         this.damaged = false;
-        if(controlsType == "CONTROLLED") this.sensor = new Sensor(this);
+        this.useBrain = controlsType=="AI";
+        if(controlsType != "DUMMY"){
+            this.sensor = new Sensor(this);
+            this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 4]);
+        }
+        
         this.controls = new Controls(controlsType);
     }
 
@@ -22,7 +27,18 @@ class Car{
             this.polygon = this.#createPolygon();
             this.damaged = this.#assessDamage(roadBorders, traffic);
         }
-        if(this.sensor) this.sensor.update(roadBorders, traffic);
+        if(this.sensor){
+            this.sensor.update(roadBorders, traffic);
+            const offsets = this.sensor.readings.map(o => o==null ? 0 : 1-o.offset); //sending 1-offset to neural network because its of higher importance if the obstacle is closer, and lesser importance if its farther away
+            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
+
+            if(this.useBrain){
+                this.controls.forward=outputs[0];
+                this.controls.left=outputs[1];
+                this.controls.right=outputs[2];
+                this.controls.reverse=outputs[3];
+            }
+        }
     }
     #move(){
         if(this.controls.forward) this.speed += this.acceleration;
@@ -82,9 +98,9 @@ class Car{
     }
 
     
-    draw(ctx){
+    draw(ctx, colour, drawSensor=false){
         if(this.damaged) ctx.fillStyle = "red";
-        else ctx.fillStyle = "black";
+        else ctx.fillStyle = colour;
         ctx.beginPath();
         ctx.moveTo(this.#createPolygon()[0].x, this.#createPolygon()[0].y);
         for(let i=1; i<this.polygon.length; i++){
@@ -92,6 +108,6 @@ class Car{
         }
         ctx.fill();
         
-        if(this.sensor) this.sensor.draw(ctx);
+        if(this.sensor && drawSensor) this.sensor.draw(ctx);
     }
 }
