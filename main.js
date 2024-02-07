@@ -8,16 +8,9 @@ const networkCtx = networkCanvas.getContext('2d');
 
 
 const road = new Road(carCanvas.width/2, carCanvas.width*0.9);
-
 const N = 1;
 const cars = generateCars(N);
-const traffic = [
-    new Car(road.getLaneCenter(1), -100, 30, 50,"DUMMY",2),
-    new Car(road.getLaneCenter(0), -200, 30, 50,"DUMMY",2),
-    new Car(road.getLaneCenter(1), -200, 30, 50,"DUMMY",2),
-    new Car(road.getLaneCenter(1), -400, 30, 50,"DUMMY",2),
-    new Car(road.getLaneCenter(2), -400, 30, 50,"DUMMY",2)
-];
+const traffic = [];
 
 let bestCar = cars[0];
 if(localStorage.getItem("bestbrain")){
@@ -82,3 +75,9 @@ function discard(){
     console.log("discarded");
     localStorage.removeItem("bestbrain");
 }
+
+carCanvas.addEventListener('click', function(event){
+    let x = event.clientX - carCanvas.getBoundingClientRect().left;
+    let y = bestCar.y - carCanvas.height*0.7+event.clientY - carCanvas.getBoundingClientRect().top;
+    traffic.push(new Car(x, y, 30, 50, "DUMMY", 2));
+});
