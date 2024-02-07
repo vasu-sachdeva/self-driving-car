@@ -5,8 +5,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 #verticalButtons{
+    padding: 5px;
     display: flex;
     flex-direction: column;
 }
@@ -15,13 +17,41 @@ button{
     border-radius: 5px;
     padding: 5px 5px 7px 5px;
     cursor: pointer;
+    margin: 5px 10px;
 }
 button:hover{
-    background: blue;
+    background: lightgrey;
+}
+input{
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+    margin: 10px;
+}
+label{
+    margin-left: 10px;
 }
 #carCanvas{
     background: lightgrey;
 }
 #networkCanvas{
     background: lightcoral;
+}
+#instructions{
+    text-align: left;
+    padding: 25px;
+    color: black;
+}
+h1{
+    font-family: fantasy;
+    padding-left: 40px;
+}
+p{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    word-spacing: 0.1px;
+}
+#labelforcount{
+    font-weight: bold;
+    font-size: 15px;
 }

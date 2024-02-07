@@ -7,10 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="instructions">
+        <h1>INSTRUCTIONS</h1>
+        <ul>
+            <li>
+                <p>Click on the canvas to add a car.</p>
+            </li>
+            <li>
+                <p>Enter the number of cars in the input field to change during testing phase.</p>
+            </li>
+            <li>
+                <p>Click Save if the model is working good.</p>
+            </li>
+            <li>
+                <p>Click Reset if you want to train the model afresh.</p>
+            </li>
+        </ul>
+    </div>
     <canvas id="carCanvas"></canvas>
     <div id="verticalButtons">
+        <label for="numberOfCars" id="labelforcount">Number of Cars:</label>
+        <input type="number" id="numberOfCars" name="numberOfCars" min="1" value="1">
+        <br>
         <button onclick="save()">SAVE</button>
-        <button onclick="discard()">DISCARD</button>
+        <button onclick="discard()">RESET</button>
     </div>
     <canvas id="networkCanvas"></canvas>
     <script src="car.js"></script>

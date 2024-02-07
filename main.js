@@ -7,10 +7,13 @@ const carCtx = carCanvas.getContext('2d');
 const networkCtx = networkCanvas.getContext('2d');
 
 
+let N = parseInt(localStorage.getItem('numberOfCars')) || 1;
 const road = new Road(carCanvas.width/2, carCanvas.width*0.9);
-const N = 1;
+// const N = 100;
 const cars = generateCars(N);
 const traffic = [];
+
+const numberOfCarsInput = document.getElementById('numberOfCars');
 
 let bestCar = cars[0];
 if(localStorage.getItem("bestbrain")){
@@ -80,4 +83,21 @@ carCanvas.addEventListener('click', function(event){
     let x = event.clientX - carCanvas.getBoundingClientRect().left;
     let y = bestCar.y - carCanvas.height*0.7+event.clientY - carCanvas.getBoundingClientRect().top;
     traffic.push(new Car(x, y, 30, 50, "DUMMY", 2));
+});
+
+numberOfCarsInput.addEventListener('change', function (event) {
+    // Get the new value of N from the input
+    const newN = parseInt(event.target.value);
+
+    // Check if the new value is valid
+    if (newN >= 1) {
+        // Update the value of N in local storage
+        localStorage.setItem('numberOfCars', newN);
+
+        // Refresh the page
+        location.reload();
+    } else {
+        // Handle invalid input (optional)
+        console.log("Invalid input value. Please enter a number greater than or equal to 1.");
+    }
 });
